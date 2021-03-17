@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>智能鞋柜</title>
+        <link rel="shortcut icon" href="https://cas.sju.edu.cn/tpass/comm/image/newicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0;  minimum-scale=1.0; maximum-scale=2" />
+        <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+        <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <!--<script src="https://static.runoob.com/assets/jquery/2.0.3/jquery.min.js"></script>-->
+        <style type="text/css" media="all">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            margin: 0;
+            background: url('./images/background/background.jpg') 100% 100%;
+            font-family:'Lato', Arial, sans-serif;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 100%;
+            z-index: -11;
+        }
+        #container {
+            /*background-color: rgba(255, 255, 255, 0.3);*/
+            /*opacity: 0.5;*/
+            /*height: 100%;*/
+            z-index: 1;
+        }
+        #cloth{
+            opacity: 0.5;
+        }
+        #main {
+            position: fixed;
+            width: 80%;
+            margin: auto 10% auto 10%;
+            height: 80%;
+            /*border: 2px solid black;*/
+            bottom: 10%;
+            display:inline-block;
+            overflow: hidden;
+        }
+        #button {
+            position: absolute;
+            bottom: -40px;
+            margin: 20px 8% 20px 8%;
+            
+            /*padding-bottom: 60px;*/
+            width: 84%;
+            height: 160px;
+            overflow-x: scroll;
+            /*overflow: hidden;*/
+            /*text-overflow:ellipsis; */
+            overflow-y: hidden;
+            white-space:nowrap;
+            display: inline;
+            text-align: center;
+            font-size: 0;
+            /*border-radius: 20px;*/
+            /*-webkit-border-radius: 20px;*/
+            /*-moz-border-radius: 20px;*/
+            /*-ms-border-radius: 20px;*/
+            /*-o-border-radius: 20px;*/
+            /*justify-content: center;*/
+            /*align-items: center;*/
+            /*display: flex;*/
+        }
+        .image_list {
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            position: relative;
+            /*position: absolute;*/
+            width: 100px;
+            /*line-height: 100px;*/
+            height:100px;
+            /*left: 50%;*/
+            /*top: 50%; */
+            vertical-align: middle;
+            margin: 12px;
+            /*padding: 10px;*/
+            color:white;
+            /*font-size: 20px;*/
+            /*font-weight: lighter;*/
+            display: inline-block;
+        }
+        #button li:hover{
+            /*transform:translate(-10px,-6px);*/
+            box-shadow: 0 0 8px #000000;
+            -webkit-box-shadow: 0 0 8px #000000;
+            -moz-box-shadow: 0 0 8px #000000;
+            -ms-box-shadow: 0 0 8px #000000;
+            -o-box-shadow: 0 0 8px #000000;
+            transform:translateY(-6px);
+            -webkit-transform:translateY(-6px);
+            -moz-transform:translateY(-6px);
+            -ms-transform:translateY(-6px);
+            -o-transform:translateY(-6px);
+        }
+        #button li:hover > .li_delete{
+            display: block;
+        }
+        li#active{
+            box-shadow: 0 0 8px #ff0000;
+            -webkit-box-shadow: 0 0 8px #ff0000;
+            -moz-box-shadow: 0 0 8px #ff0000;
+            -ms-box-shadow: 0 0 8px #ff0000;
+            -o-box-shadow: 0 0 8px #ff0000;
+            transform:translateY(-6px);
+            -webkit-transform:translateY(-6px);
+            -moz-transform:translateY(-6px);
+            -ms-transform:translateY(-6px);
+            -o-transform:translateY(-6px);
+        }
+        .li_delete{
+            position:absolute;
+            top:-5px;
+            right:-5px;
+            display: none;
+            width:20px;
+            height:20px;
+            background:url('./images/delete2.png');
+            background-size: cover;
+            border-radius:4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+        }
+        .image_botton{
+            width: 80%;
+            height: 80%;
+            border-radius: 30px;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -o-border-radius: 30px;
+            margin:10%;
+            cursor: pointer;
+        }
+        .image_name{
+            font-size: 16px;
+            line-height: 16px;
+            margin-top: 5px;
+            font-weight: bold;
+            font-family: "宋体";
+            color:black;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        </style>
+        <script type="text/javascript" charset="utf-8">
+            function add_add(a){
+                $('#active').attr("onclick","add_add(this);");
+                if($('#active').length>0)
+                $('#active')[0].children[0].style.display="";
+                $('#active').attr("id","");
+                $(a).attr("id","active");
+                $(a).attr("onclick","remove_add(this);");
+                $(a)[0].children[0].style.display="block";
+            }
+            function remove_add(a){
+                $(a).attr("id","");
+                $(a).attr("onclick","add_add(this);");
+                $(a)[0].children[0].style.display="";
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div id="container">
+            <header id="header"></header>
+            <div id="main">
+                <div id="button">
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(169,187,104);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/爷爷.png" alt="爷爷" />
+                        <p class="image_name">爷爷</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(224,162,199);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/奶奶.png" alt="奶奶" />
+                        <p class="image_name">奶奶</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(110,169,202);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/爸爸.png" alt="爸爸" />
+                        <p class="image_name">爸爸</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(204,181,107);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/妈妈.png" alt="妈妈" />
+                        <p class="image_name">妈妈</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(104,207,219);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/儿子.png" alt="儿子" />
+                        <p class="image_name">儿子</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(107,169,185);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/姐姐.png" alt="姐姐" />
+                        <p class="image_name">姐姐</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(148,215,220);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/男孩.png" alt="男孩" />
+                        <p class="image_name">男孩</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(237,171,180);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/女孩.png" alt="女孩" />
+                        <p class="image_name">女孩</p>
+                    </li>
+                    <li onclick="add_add(this)" class="image_list" style="background-color:rgb(227,130,121);">
+                        <i class="li_delete" style=""></i>
+                        <img class="image_botton" src="images/img/宝贝.png" alt="宝贝" />
+                        <p class="image_name">宝贝</p>
+                    </li>
+                    <li class="image_list" style="">
+                        <img class="image_botton" src="images/add.png" alt="添加" />
+                        <p class="image_name">添加</p>
+                    </li>
+                </div>
+            </div>
+            <footer id="footer"></footer>
+        </div>
+        <div class="" style="width: 100%;height: 100%;position: fixed;background-color: rgb(255, 255, 255, 0.2);z-index:-2;">
+            
+        </div>
+    </body>
+
+</html>

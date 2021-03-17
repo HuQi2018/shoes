@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>智能鞋柜登录</title>
+        <link rel="shortcut icon" href="images/newicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0;  minimum-scale=1.0; maximum-scale=2" />
+        <link rel="stylesheet" href="css/login.css">
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    
+    <body>
+        <div class="i-base-wrap">
+            <div class="i-content-wrap">
+                <!--header begin-->
+                <div class="i-header i-header-inner2" id="ji-header">
+                    <div class="i-head-logo">
+                        <a href=""></a>
+                    </div>
+                    <div class="i-head-title">智能鞋柜登录</div>
+                </div>
+                <!--header end-->
+                <div class="i-tab">
+                    <div class="i-tab-switch i-tab-active" onclick="btn_login(this)"><a href="#">账号登录</a>
+
+                    </div>
+                    <div class="i-tab-switch" onclick="btn_register(this)"><a href="#">注册账号</a>
+
+                    </div>
+                </div>
+                <form class="i-base-form" method="post" action="php/user.php?type=login" id="login-form" onsubmit="return login();">
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon g-phone-wrap" id="jg-input-select-wrap">
+                            <input type="text" name="loginName" id="loginName" value="" class="text g-input jg-phone-input J_pageValidateItem" autocomplete="off" placeholder="邮箱/用户名"  required="required"> <i class="i-icon i-icon-user"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon">
+                            <input type="password" name="loginPassword" autocomplete="off" class="text J_pageValidateItem" id="loginPassword" placeholder="请输入密码" required="required"> <i class="i-icon i-icon-lock"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="p-btn-wrap">
+                        <button class="i-base-btn p-register-btn" id="jp-submit">登录</button>
+                    </div>
+                    <!--<div class="p-btn-wrap p-links" style="text-align:center;"><a href="/sso/m/backpwd/toBackPwd.do?next_page=https%3A%2F%2Fm.koolearn.com%2F" class="p-link">忘记密码</a></div>-->
+                </form>
+                <form class="i-base-form" method="post" action="php/user.php?type=login" id="register-form" style="display:none;" onsubmit="return register();">
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon p-no-mr">
+                            <input type="text" name="name" id="name" class="text J_pageValidateItem" autocomplete="off" placeholder="请输入用户名" required="required"> <i class="i-icon i-icon-user"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon g-phone-wrap" id="jg-input-select-wrap">
+                            <input type="text" class="text g-input g-country-phone-input jg-phone-input J_pageValidateItem" autocomplete="off" name="mobile" id="mobile" placeholder="请输入手机号"> <i class="i-icon i-icon-user"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon g-phone-wrap" id="jg-input-select-wrap">
+                            <input type="email" class="text g-input g-country-phone-input jg-phone-input J_pageValidateItem" autocomplete="off" name="email" id="email" placeholder="请输入邮箱地址" required="required"> <i class="i-icon i-icon-user"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon p-no-mr">
+                            <input type="password" name="password" id="password" autocomplete="off" class="text J_pageValidateItem" placeholder="请输入密码" required="required"> <i class="i-icon i-icon-lock"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <!--<div class="t-flex-wrap">-->
+                    <!--    <div class="t-flex-item t-flex-code">-->
+                    <!--        <input type="text" name="imageCode" class="text code jp-code J_pageValidateItem" maxlength="4" placeholder="验证码" required="required">-->
+                    <!--    </div>-->
+                    <!--    <img src="" alt="" class="p-get-code-btn" id="jp-getCodeBtn">-->
+                    <!--    <div class="error-text"></div>-->
+                    <!--</div>-->
+                    <!--<div class="t-flex-wrap">-->
+                    <!--    <div class="t-flex-item t-flex-code">-->
+                    <!--        <input type="text" name="msgCode" id="msgCode" class="text code J_pageValidateItem" placeholder="邮箱验证码" maxlength="6" required="required">-->
+                    <!--    </div>-->
+                    <!--    <button class="i-base-btn p-get-code-btn" id="jp-getMsgCodeBtn">获取验证码</button>-->
+                    <!--    <div class="error-text"></div>-->
+                    <!--</div>-->
+                    <div class="t-flex-wrap t-agreement-box">
+                        <div class="t-flex-item t-with-icon">
+                            <input type="checkbox" name="agreement" class="J_pageValidateItem" required="required"> <span class="t-agreement-title">我已阅读并接受<span class="t-agreement-name" data-url="/user/agreement">《用户注册条款》</span>和<span class="t-agreement-name" data-url="/user/policy">《隐私权保护政策》</span></span>
+                            <div class="error-text"></div>
+                        </div>
+                    </div>
+                    <div class="p-btn-wrap">
+                        <button class="i-base-btn p-register-btn" id="jp-submit">注册</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /i-content-wrap -->
+        </div>
+    </body>
+
+</html>

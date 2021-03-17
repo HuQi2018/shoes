@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>智能鞋柜角色添加</title>
+        <link rel="shortcut icon" href="images/newicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0;  minimum-scale=1.0; maximum-scale=2" />
+        <link rel="stylesheet" href="css/login.css">
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/b64.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            
+            $(document).ready(function(){
+                $("#inputfile").change(function(){
+                    //创建FormData对象
+                    var data = new FormData();
+                    //为FormData对象添加数据
+                    $.each($('#inputfile')[0].files, function(i, file) {
+                        data.append('upload_file', file);
+                    });
+                    $.ajax({
+                        url:'php/upload.php',
+                        type:'POST',
+                        data:data,
+                        cache: false,
+                        contentType: false,    //不可缺
+                        processData: false,    //不可缺
+                        success:function(data){
+                            var base = new Base64();
+                            var obj = $.parseJSON(data);
+                            if( obj.status === "0" ){
+                                alert(obj.message);
+                                $("#bgColor")[0].parentNode.nextElementSibling.innerHTML=obj.message;
+                            }else{
+                                $("#feedback")[0].innerHTML = $("#feedback")[0].innerHTML+base.decode(obj.message);
+                            }
+                        }
+                    });
+                });
+            });
+            
+        </script>
+    </head>
+    
+    <body>
+        <div class="i-base-wrap">
+            <div class="i-content-wrap">
+                <!--header begin-->
+                <div class="i-header i-header-inner2" id="ji-header">
+                    <div class="i-head-logo">
+                        <a href=""></a>
+                    </div>
+                    <div class="i-head-title">智能鞋柜角色添加</div>
+                    <i onclick="javascript:window.history.go(-1);" style="position: absolute;right: 10px;top: 10px;background: url('./images/delete1.png') 100% 100%;background-size: 20px 20px;width: 20px;height: 20px;cursor: pointer;"></i>
+                </div>
+                <form class="i-base-form" method="post" action="php/post.php?type=add_role" id="post-form" onsubmit="return post();">
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon g-phone-wrap" id="jg-input-select-wrap">
+                            <input type="text" name="name" id="name" value="" class="text g-input jg-phone-input J_pageValidateItem" autocomplete="off" placeholder="角色名称，1-6个字符"  required="required"> <i class="i-icon i-icon-user"></i>
+
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon">
+                            <input type="color" name="bgColor" autocomplete="off" class="text" id="bgColor" placeholder="角色头像背景颜色" required="required" style="padding-left: 200px;" onchange="change_color(this);"> <span style="left: 15px;position: absolute;right: 15px;top: 9px;color: #c9c9c9;width: 200px;">角色头像背景颜色：</span>
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon">
+                            <span>角色头像：</span>
+                            <div>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="爷爷.png" />
+                                    <img class="" src="images/img/爷爷.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="奶奶.png" />
+                                    <img class="" src="images/img/奶奶.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="爸爸.png" />
+                                    <img class="" src="images/img/爸爸.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="妈妈.png" />
+                                    <img class="" src="images/img/妈妈.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="儿子.png" />
+                                    <img class="" src="images/img/儿子.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="姐姐.png" />
+                                    <img class="" src="images/img/姐姐.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="男孩.png" />
+                                    <img class="" src="images/img/男孩.png" alt="" />
+                                </span>
+                                <span class="i-img" style="" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="女孩.png" />
+                                    <img class="" src="images/img/女孩.png" alt="" />
+                                </span>
+                                <span class="i-img" style="border: 2px #9f8c8c solid;" onclick="change_img(this);">
+                                    <input type="radio" name="img" value="宝贝.png" checked="checked"/>
+                                    <img class="" src="images/img/宝贝.png" alt="" />
+                                </span>
+                                <div id="feedback" style="display: inline-block;"></div>
+                                <span class="i-img" style="" onclick="getElementById('inputfile').click()">
+                                    <input type="file" name="image" style="opacity:0;filter:alpha(opacity=0);display:none;" id="inputfile"/>
+                                    <img class="" src="images/add.png" alt="自定义上传" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="t-flex-wrap">
+                        <div class="t-flex-item t-with-icon">
+                            <span>角色头像预览：</span>
+                            <span id="pre_view" class="i-img" style="background:#000000;">
+                                <img src="images/img/宝贝.png" alt="" />
+                            </span>
+                        </div>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="p-btn-wrap">
+                        <button class="i-base-btn p-register-btn" id="jp-submit">添加</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /i-content-wrap -->
+        </div>
+    </body>
+
+</html>

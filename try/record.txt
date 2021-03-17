@@ -1,0 +1,23 @@
+div联动
+
+
+        @media screen and (min-width: 980px) and ( max-width: 1124px ) {
+            .main-content-left-border div div h1{
+                color: #8925f4;font-size: 250%;margin: 20px 0;text-shadow: 2px 2px #07a3f6;text-align: center;
+            }
+        }
+        @media screen and (min-width: 860px) and (max-width: 980px) {
+            .list-content{
+                margin-left: 4%;
+            }
+        }
+        @media screen and (max-width: 860px) {
+            .list-content{
+                margin-left: 2%;
+            }
+        }
+
+1、连接互联网终端：包含注册登录
+2、独立单机：无注册登录
+
+注册时预置鞋柜数量，创建空鞋柜，给予预留鞋柜ID。
